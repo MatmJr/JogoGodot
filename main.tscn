@@ -1,7 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://cpegmmgu5bj44"]
+[gd_scene load_steps=37 format=3 uid="uid://cpegmmgu5bj44"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_3lnvp"]
 [ext_resource type="Texture2D" uid="uid://bkygxgdkgww6m" path="res://player/sprite_aula2.png" id="2_857tm"]
+[ext_resource type="Texture2D" uid="uid://b7fk4sio5hqa4" path="res://enemy/sprite_aula3.png" id="3_54cp0"]
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="3_l3wpf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0i74"]
 atlas = ExtResource("2_857tm")
@@ -141,6 +143,116 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bikgl"]
 size = Vector2(38, 52)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkmq3"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(0, 4, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcn6n"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(48, 4, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ru27"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(96, 4, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjphe"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(0, 51, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwvsg"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(48, 51, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3x36"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(96, 51, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xlli"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(0, 98, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6od6j"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(48, 98, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knvho"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(96, 98, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mop5"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(0, 145, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfge6"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(48, 145, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcu1o"]
+atlas = ExtResource("3_54cp0")
+region = Rect2(96, 145, 48, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fi2j1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkmq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcn6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ru27")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjphe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwvsg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3x36")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xlli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6od6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knvho")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mop5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yfge6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcu1o")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rmet"]
+size = Vector2(30, 41)
+
 [node name="Main" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
@@ -154,3 +266,15 @@ animation = &"down"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_bikgl")
+
+[node name="Enemy" type="CharacterBody2D" parent="."]
+script = ExtResource("3_l3wpf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
+position = Vector2(518, 279)
+sprite_frames = SubResource("SpriteFrames_fi2j1")
+animation = &"down"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(517, 278.5)
+shape = SubResource("RectangleShape2D_7rmet")
