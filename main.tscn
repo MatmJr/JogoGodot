@@ -1,7 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cpegmmgu5bj44"]
+[gd_scene load_steps=24 format=3 uid="uid://cpegmmgu5bj44"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_3lnvp"]
+[ext_resource type="Script" path="res://main.gd" id="1_svlj7"]
 [ext_resource type="Texture2D" uid="uid://bkygxgdkgww6m" path="res://player/sprite_aula2.png" id="2_857tm"]
+[ext_resource type="PackedScene" uid="uid://b35hmemf4t3hl" path="res://enemy.tscn" id="3_6mhyq"]
+[ext_resource type="PackedScene" uid="uid://dupx5uisqjv4h" path="res://player/hearts_container.tscn" id="4_0k8oe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0i74"]
 atlas = ExtResource("2_857tm")
@@ -142,6 +145,7 @@ animations = [{
 size = Vector2(38, 52)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_svlj7")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(419, 275)
@@ -151,6 +155,20 @@ script = ExtResource("1_3lnvp")
 sprite_frames = SubResource("SpriteFrames_41k7w")
 animation = &"down"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="hurtBox" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/hurtBox"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_bikgl")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Enemy" parent="." instance=ExtResource("3_6mhyq")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(3, 3)
+transform = Transform2D(3, 0, 0, 3, 0, 0)
+
+[node name="heartsContainer" parent="CanvasLayer" instance=ExtResource("4_0k8oe")]
+
+[connection signal="area_entered" from="Player/hurtBox" to="Player" method="_on_hurt_box_area_entered"]

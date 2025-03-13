@@ -1,10 +1,21 @@
 extends CharacterBody2D
 
+signal healthChanged
 
 const SPEED = 300.0
 
-func _physics_process(delta: float) -> void:
+@export var maxHealth = 3
+@onready var currentHealth: int = maxHealth
 
+func _on_hurt_box_area_entered(area):
+	if area.name == "hitBox":
+		currentHealth -= 1
+		print_debug(currentHealth)
+		healthChanged.emit(currentHealth)
+		if currentHealth <= 0:
+			get_tree().reload_current_scene()
+
+func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
