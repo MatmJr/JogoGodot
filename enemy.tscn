@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://b35hmemf4t3hl"]
+[gd_scene load_steps=18 format=3 uid="uid://b35hmemf4t3hl"]
 
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_4u3c1"]
 [ext_resource type="Texture2D" uid="uid://b7fk4sio5hqa4" path="res://enemy/sprite_aula3.png" id="2_r740u"]
-[ext_resource type="Script" path="res://enemy/spwaner.gd" id="3_uruhp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bkmq3"]
 atlas = ExtResource("2_r740u")
@@ -121,19 +120,16 @@ size = Vector2(27, 38)
 script = ExtResource("1_4u3c1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(518, 279)
+position = Vector2(-3, 0.5)
 sprite_frames = SubResource("SpriteFrames_fi2j1")
 animation = &"down"
 
 [node name="hitBox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
-position = Vector2(517, 278.5)
+position = Vector2(-4, 0)
 shape = SubResource("RectangleShape2D_7rmet")
 
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("3_uruhp")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(517.5, 279)
+position = Vector2(-3.5, 0.5)
 shape = SubResource("RectangleShape2D_aa3rm")

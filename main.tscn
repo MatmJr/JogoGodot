@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://cpegmmgu5bj44"]
+[gd_scene load_steps=39 format=4 uid="uid://cpegmmgu5bj44"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_3lnvp"]
 [ext_resource type="Script" path="res://main.gd" id="1_mfv4w"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b35hmemf4t3hl" path="res://enemy.tscn" id="3_6mhyq"]
 [ext_resource type="Texture2D" uid="uid://cfk0rr6dg2d7d" path="res://world/sTiles.png" id="3_hnrgm"]
 [ext_resource type="PackedScene" uid="uid://1qf0e74cvafu" path="res://player/hearts_container.tscn" id="4_1hhcb"]
+[ext_resource type="PackedScene" uid="uid://bs5gpuiu3icdj" path="res://weapon.tscn" id="6_k5qni"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x1u74"]
 texture = ExtResource("2_3wbmn")
@@ -4173,6 +4174,103 @@ size = Vector2(38, 52)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7e6c4"]
 size = Vector2(22, 47)
 
+[sub_resource type="Animation" id="Animation_qbvks"]
+resource_name = "attackDown"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerWeapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-2.53073, -3.75246]
+}
+
+[sub_resource type="Animation" id="Animation_3pqei"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerWeapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-2.53073]
+}
+
+[sub_resource type="Animation" id="Animation_hiobu"]
+resource_name = "attackUp"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerWeapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.785398, 0.785398]
+}
+
+[sub_resource type="Animation" id="Animation_bbm2e"]
+resource_name = "attackLeft"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerWeapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.785398, -2.53073]
+}
+
+[sub_resource type="Animation" id="Animation_2wx4x"]
+resource_name = "new_animation"
+step = 0.1
+
+[sub_resource type="Animation" id="Animation_3xh6p"]
+resource_name = "attackRight"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerWeapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.785398, 2.53073]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tngtc"]
+_data = {
+"RESET": SubResource("Animation_3pqei"),
+"attackDown": SubResource("Animation_qbvks"),
+"attackLeft": SubResource("Animation_bbm2e"),
+"attackRight": SubResource("Animation_3xh6p"),
+"attackUp": SubResource("Animation_hiobu"),
+"new_animation": SubResource("Animation_2wx4x")
+}
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_mfv4w")
 
@@ -4193,17 +4291,29 @@ script = ExtResource("1_3lnvp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = SubResource("SpriteFrames_41k7w")
-animation = &"down"
+animation = &"right"
 
 [node name="hurtBox" type="Area2D" parent="Player"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/hurtBox"]
+[node name="ShapeHurtBox" type="CollisionShape2D" parent="Player/hurtBox"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_bikgl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(-1, 6.5)
 shape = SubResource("RectangleShape2D_7e6c4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_tngtc")
+}
+
+[node name="PlayerWeapon" type="Node2D" parent="Player"]
+rotation = -2.53073
+
+[node name="weapon" parent="Player/PlayerWeapon" instance=ExtResource("6_k5qni")]
+position = Vector2(-3.8147e-06, -8)
+scale = Vector2(0.1, 0.1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(3, 3)

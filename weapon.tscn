@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs5gpuiu3icdj"]
+
+[ext_resource type="Texture2D" uid="uid://b3usa44ed4dgf" path="res://scepter.png" id="1_e2nnw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ck8ou"]
+size = Vector2(67, 367)
+
+[node name="weapon" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6.5, -212.5)
+shape = SubResource("RectangleShape2D_ck8ou")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(6.00001, -205)
+rotation = 0.698132
+texture = ExtResource("1_e2nnw")
