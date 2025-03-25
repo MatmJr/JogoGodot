@@ -254,6 +254,7 @@ animations = [{
 size = Vector2(30, 41)
 
 [node name="Main" type="Node2D"]
+position = Vector2(1, 2)
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(419, 275)
@@ -270,17 +271,19 @@ position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_bikgl")
 
 [node name="Enemy" type="CharacterBody2D" parent="."]
+position = Vector2(673, 277)
 script = ExtResource("3_l3wpf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemy"]
-position = Vector2(518, 279)
+position = Vector2(1, 2.5)
 sprite_frames = SubResource("SpriteFrames_fi2j1")
 animation = &"down"
 
 [node name="hitBox" type="Area2D" parent="Enemy"]
+position = Vector2(-9, -6.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/hitBox"]
-position = Vector2(517, 278.5)
+position = Vector2(9, 10)
 shape = SubResource("RectangleShape2D_7rmet")
 
 [connection signal="area_entered" from="Player/hurtBox" to="Player" method="_on_hurt_box_area_entered"]
