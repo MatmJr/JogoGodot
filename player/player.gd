@@ -13,9 +13,8 @@ var currentHealth
 
 enum States {IDLE, WALK, ATTACK}
 
-
 var current_state = States.IDLE
-var last_direction = "qualquercoisa"
+var last_direction = "right"
 
 var direction_actions = {
 	"ui_right": {"name": "right", "vector": Vector2.RIGHT},
@@ -27,7 +26,6 @@ var direction_actions = {
 func _ready() -> void:
 	currentHealth = maxHealth
 	weapon.visible = false
-	last_direction = WalkAnimation.animation
 
 func _on_hurt_box_area_entered(area):
 	if area.name != "hitBox": return
@@ -35,10 +33,10 @@ func _on_hurt_box_area_entered(area):
 	currentHealth -= 1
 	heartChanged.emit(currentHealth)
 	print_debug(currentHealth)
-	
+
 	var knockback_force = 1000
 	var knockback_direction = (global_position - area.global_position).normalized()
-	velocity = knockback_force * knockback_direction
+	velocity = knockback_direction * knockback_force
 	move_and_slide()
 
 	if currentHealth <= 0:
